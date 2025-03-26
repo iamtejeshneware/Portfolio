@@ -5,29 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tejesh Neware - Portfolio</title>
     <style>
-        h1{
-            text-align: left;
-        }
         /* Global Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #d4f0fc;
+            scroll-behavior: smooth;
         }
+        
+        /* Sticky Navigation Bar */
         header {
             background: #01303f;
             color: white;
             padding: 15px;
-            text-align: center;
             position: fixed;
             width: 100%;
             top: 0;
+            left: 0;
             z-index: 1000;
+            text-align: center;
         }
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
         nav ul li {
             display: inline;
@@ -40,30 +42,32 @@
             cursor: pointer;
         }
 
-        /* Sections */
+        /* Section Styling */
         section {
             padding: 100px 20px;
             text-align: center;
-            display: none; /* Hide all sections initially */
+            height: 100vh;
         }
+
+        /* Active Section Highlight */
         .active {
-            display: block; /* Show the active section */
+            background-color: #89d6fb;
+            transition: background 0.5s;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
             background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
-            color: #01303f;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
-        
+
         /* Services & Courses */
         .card {
-            background: #89d6fb;
+            background: #02a9f7;
             padding: 20px;
             margin: 10px auto;
             width: 80%;
@@ -71,6 +75,7 @@
             border-radius: 5px;
             text-align: center;
             transition: transform 0.3s;
+            color: white;
         }
         .card:hover {
             transform: scale(1.05);
@@ -86,7 +91,7 @@
             border-radius: 5px;
         }
         button {
-            background: #02a9f7;
+            background: #02577a;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -96,37 +101,36 @@
             border-radius: 5px;
         }
         button:hover {
-            background: #02577a;
+            background: #01303f;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Tejesh Neware</h1>
     <nav>
         <ul>
-            <li><a onclick="showSection('home')">Home</a></li>
-            <li><a onclick="showSection('about')">About</a></li>
-            <li><a onclick="showSection('services')">Services</a></li>
-            <li><a onclick="showSection('courses')">Courses</a></li>
-            <li><a onclick="showSection('contact')">Contact</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 </header>
 
 <!-- Home Section -->
-<section id="home" class="hero active">
+<section id="home" class="hero">
     <h1>Hi, I'm Tejesh Neware</h1>
     <p>Freelancer | Instructor | Tech Content Creator</p>
-    <button onclick="showSection('about')">Learn More</button>
+    <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">Learn More</button>
 </section>
 
 <!-- About Section -->
 <section id="about">
     <h2>About Me</h2>
     <p>I'm a freelancer, instructor at Govt. ITI Goregaon, and a tech content creator.</p>
-    <p>Specialized in GeM Portal, Digital Marketing, SEO, and more.</p>
+    <p>I specialize in GeM Portal, Digital Marketing, SEO, and more.</p>
 </section>
 
 <!-- Services Section -->
@@ -162,14 +166,23 @@
 </section>
 
 <script>
-    // Function to Show Only One Section at a Time
-    function showSection(sectionId) {
+    // Highlight Active Section While Scrolling
+    window.addEventListener("scroll", () => {
         let sections = document.querySelectorAll("section");
-        sections.forEach(section => {
-            section.classList.remove("active");
+        let scrollPos = window.scrollY + 100;
+
+        sections.forEach((section) => {
+            if (
+                scrollPos >= section.offsetTop &&
+                scrollPos < section.offsetTop + section.offsetHeight
+            ) {
+                document.querySelectorAll("nav ul li a").forEach((link) => {
+                    link.classList.remove("active");
+                });
+                document.querySelector(`nav ul li a[href="#${section.id}"]`).classList.add("active");
+            }
         });
-        document.getElementById(sectionId).classList.add("active");
-    }
+    });
 
     // Contact Form Validation
     document.getElementById("contactForm").addEventListener("submit", function(event) {
