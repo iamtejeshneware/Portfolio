@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tejesh Neware - Portfolio</title>
+    <style>
+        h1{
+            text-align: left;
+        }
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d4f0fc;
+        }
+        header {
+            background: #01303f;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            text-align: center;
+            display: none; /* Hide all sections initially */
+        }
+        .active {
+            display: block; /* Show the active section */
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+            color: #01303f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        /* Services & Courses */
+        .card {
+            background: #89d6fb;
+            padding: 20px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Form */
+        input, textarea {
+            display: block;
+            width: 80%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #02a9f7;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #02577a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Tejesh Neware</h1>
+    <nav>
+        <ul>
+            <li><a onclick="showSection('home')">Home</a></li>
+            <li><a onclick="showSection('about')">About</a></li>
+            <li><a onclick="showSection('services')">Services</a></li>
+            <li><a onclick="showSection('courses')">Courses</a></li>
+            <li><a onclick="showSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Home Section -->
+<section id="home" class="hero active">
+    <h1>Hi, I'm Tejesh Neware</h1>
+    <p>Freelancer | Instructor | Tech Content Creator</p>
+    <button onclick="showSection('about')">Learn More</button>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <h2>About Me</h2>
+    <p>I'm a freelancer, instructor at Govt. ITI Goregaon, and a tech content creator.</p>
+    <p>Specialized in GeM Portal, Digital Marketing, SEO, and more.</p>
+</section>
+
+<!-- Services Section -->
+<section id="services">
+    <h2>My Services</h2>
+    <div class="card">GeM Portal Services</div>
+    <div class="card">Mahatender & CPPP</div>
+    <div class="card">Digital Marketing</div>
+    <div class="card">SEO & SMM</div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses">
+    <h2>Courses I Offer</h2>
+    <div class="card">GeM Portal Training</div>
+    <div class="card">Digital Marketing</div>
+    <div class="card">Front-End Development</div>
+    <div class="card">COPA Course</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="email" id="email" placeholder="Your Email" required>
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+    <p>Email: newaretejesh1828@gmail.com</p>
+    <p>Phone: 9637844970</p>
+    <p>Follow me on <a href="https://www.instagram.com/iamtejeshneware" target="_blank">Instagram</a></p>
+</section>
+
+<script>
+    // Function to Show Only One Section at a Time
+    function showSection(sectionId) {
+        let sections = document.querySelectorAll("section");
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
+        document.getElementById(sectionId).classList.add("active");
+    }
+
+    // Contact Form Validation
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        if (name === "" || email === "" || message === "") {
+            alert("All fields are required!");
+        } else {
+            alert("Message sent successfully!");
+        }
+    });
+</script>
+
+</body>
+</html>
