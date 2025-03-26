@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tejesh Neware - Portfolio</title>
     <style>
+        h1{
+            text-align: left;
+        }
         /* Global Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #d4f0fc;
-            scroll-behavior: smooth;
         }
-        
-        /* Sticky Navigation Bar */
         header {
             background: #01303f;
             color: white;
             padding: 15px;
+            text-align: center;
             position: fixed;
             width: 100%;
             top: 0;
-            left: 0;
             z-index: 1000;
-            text-align: center;
         }
         nav ul {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
         nav ul li {
             display: inline;
@@ -42,32 +40,30 @@
             cursor: pointer;
         }
 
-        /* Section Styling */
+        /* Sections */
         section {
             padding: 100px 20px;
             text-align: center;
-            height: 100vh;
+            display: none; /* Hide all sections initially */
         }
-
-        /* Active Section Highlight */
         .active {
-            background-color: #89d6fb;
-            transition: background 0.5s;
+            display: block; /* Show the active section */
         }
 
         /* Hero Section */
         .hero {
+            height: 100vh;
             background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
-            color: white;
+            color: #01303f;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
-
+        
         /* Services & Courses */
         .card {
-            background: #02a9f7;
+            background: #89d6fb;
             padding: 20px;
             margin: 10px auto;
             width: 80%;
@@ -75,7 +71,6 @@
             border-radius: 5px;
             text-align: center;
             transition: transform 0.3s;
-            color: white;
         }
         .card:hover {
             transform: scale(1.05);
@@ -91,7 +86,7 @@
             border-radius: 5px;
         }
         button {
-            background: #02577a;
+            background: #02a9f7;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -101,36 +96,37 @@
             border-radius: 5px;
         }
         button:hover {
-            background: #01303f;
+            background: #02577a;
         }
     </style>
 </head>
 <body>
 
 <header>
+    <h1>Tejesh Neware</h1>
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#courses">Courses</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a onclick="showSection('home')">Home</a></li>
+            <li><a onclick="showSection('about')">About</a></li>
+            <li><a onclick="showSection('services')">Services</a></li>
+            <li><a onclick="showSection('courses')">Courses</a></li>
+            <li><a onclick="showSection('contact')">Contact</a></li>
         </ul>
     </nav>
 </header>
 
 <!-- Home Section -->
-<section id="home" class="hero">
+<section id="home" class="hero active">
     <h1>Hi, I'm Tejesh Neware</h1>
     <p>Freelancer | Instructor | Tech Content Creator</p>
-    <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">Learn More</button>
+    <button onclick="showSection('about')">Learn More</button>
 </section>
 
 <!-- About Section -->
 <section id="about">
     <h2>About Me</h2>
     <p>I'm a freelancer, instructor at Govt. ITI Goregaon, and a tech content creator.</p>
-    <p>I specialize in GeM Portal, Digital Marketing, SEO, and more.</p>
+    <p>Specialized in GeM Portal, Digital Marketing, SEO, and more.</p>
 </section>
 
 <!-- Services Section -->
@@ -154,35 +150,36 @@
 <!-- Contact Section -->
 <section id="contact">
     <h2>Contact Me</h2>
-    <form id="contactForm">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="email" id="email" placeholder="Your Email" required>
-        <textarea id="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-    </form>
+        <form target="_blank" action="https://formsubmit.co/newaretejesh1828@gmail.com" method="POST">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+              </div>
+              <div class="col">
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
+        </form>
     <p>Email: newaretejesh1828@gmail.com</p>
     <p>Phone: 9637844970</p>
     <p>Follow me on <a href="https://www.instagram.com/iamtejeshneware" target="_blank">Instagram</a></p>
 </section>
 
 <script>
-    // Highlight Active Section While Scrolling
-    window.addEventListener("scroll", () => {
+    // Function to Show Only One Section at a Time
+    function showSection(sectionId) {
         let sections = document.querySelectorAll("section");
-        let scrollPos = window.scrollY + 100;
-
-        sections.forEach((section) => {
-            if (
-                scrollPos >= section.offsetTop &&
-                scrollPos < section.offsetTop + section.offsetHeight
-            ) {
-                document.querySelectorAll("nav ul li a").forEach((link) => {
-                    link.classList.remove("active");
-                });
-                document.querySelector(`nav ul li a[href="#${section.id}"]`).classList.add("active");
-            }
+        sections.forEach(section => {
+            section.classList.remove("active");
         });
-    });
+        document.getElementById(sectionId).classList.add("active");
+    }
 
     // Contact Form Validation
     document.getElementById("contactForm").addEventListener("submit", function(event) {
